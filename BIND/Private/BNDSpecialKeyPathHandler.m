@@ -45,7 +45,7 @@
         //keypath could be object.object.keypath
         NSUInteger index = keyPath.length - [components.lastObject length] - 1;
         keyPath = [keyPath substringToIndex:index];
-        return [object valueForKey:keyPath];
+        return [object valueForKeyPath:keyPath];
     }
     return nil;
 }
