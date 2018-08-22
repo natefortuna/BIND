@@ -209,7 +209,9 @@ NSString * const BNDBindingAssociatedBindingsKey = @"BNDBindingAssociatedBinding
 }
 
 - (void)setLeftObjectValue:(id)value {
-    if (self.isAsynchronousMode) {
+    if ([self.leftKeyPath isEqualToString:@"voidKeyPath"]) {
+        // don't set a value to a non-existent keyPath, that crashes
+    } else if (self.isAsynchronousMode) {
         __weak typeof(self) weakSelf = self;
         void (^asyncTransformBlock)(id, id) = ^(id value, id transformedValue) {
             [weakSelf.leftObject setValue:transformedValue
@@ -232,7 +234,9 @@ NSString * const BNDBindingAssociatedBindingsKey = @"BNDBindingAssociatedBinding
 }
 
 - (void)setRightObjectValue:(id)value {
-    if (self.isAsynchronousMode) {
+    if ([self.rightKeyPath isEqualToString:@"voidKeyPath"]) {
+        // don't set a value to a non-existent keyPath, that crashes
+    } else if (self.isAsynchronousMode) {
         __weak typeof(self) weakSelf = self;
         void (^asyncTransformBlock)(id, id) = ^(id value, id transformedValue) {
             [weakSelf.rightObject setValue:transformedValue
